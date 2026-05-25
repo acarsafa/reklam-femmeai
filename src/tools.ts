@@ -23,7 +23,7 @@ export interface Guardrails {
 const getAccountInfoTool: ToolDefinition = {
   name: "get_account_info",
   description:
-    "Asra Pırlanta reklam hesabının özet bilgilerini getirir: bakiye, harcama, durumu, para birimi, zaman dilimi. Hesap sağlığı kontrolü için ilk başvurulacak araç.",
+    "Femme Protocol (kadın sağlığı suplement/wellness markası) Meta reklam hesabının özet bilgilerini getirir: bakiye, harcama, durum, para birimi, zaman dilimi. Hesap sağlığı kontrolü için ilk başvurulacak araç.",
   inputSchema: {
     type: "object",
     properties: {},
@@ -35,7 +35,7 @@ const getAccountInfoTool: ToolDefinition = {
 const listCampaignsTool: ToolDefinition = {
   name: "list_campaigns",
   description:
-    "Hesaptaki tüm kampanyaları listeler. Her kampanyanın ID, ad, objective, status, bütçe bilgilerini döndürür.",
+    "Femme Protocol Meta reklam hesabındaki tüm kampanyaları listeler. Her kampanyanın ID, ad, objective, status, bütçe bilgilerini döndürür.",
   inputSchema: {
     type: "object",
     properties: {
@@ -52,7 +52,7 @@ const listCampaignsTool: ToolDefinition = {
 const listAdSetsTool: ToolDefinition = {
   name: "list_ad_sets",
   description:
-    "Bir kampanyanın ad set'lerini listeler. campaign_id verilmezse tüm hesabın ad set'leri döner.",
+    "Femme Protocol'ün bir kampanyasının ad set'lerini listeler. campaign_id verilmezse tüm hesabın ad set'leri döner.",
   inputSchema: {
     type: "object",
     properties: {
@@ -69,7 +69,7 @@ const listAdSetsTool: ToolDefinition = {
 
 const listAdsTool: ToolDefinition = {
   name: "list_ads",
-  description: "Bir ad set'in reklamlarını listeler. adset_id verilmezse tüm hesabın reklamları döner.",
+  description: "Femme Protocol'ün bir ad set'inin reklamlarını listeler. adset_id verilmezse tüm hesabın reklamları döner.",
   inputSchema: {
     type: "object",
     properties: {
@@ -87,7 +87,7 @@ const listAdsTool: ToolDefinition = {
 const getInsightsTool: ToolDefinition = {
   name: "get_insights",
   description:
-    "Performans verisi çeker (harcama, impression, click, CTR, CPC, CPM, ROAS, dönüşümler). object_id verilirse o objenin (campaign/adset/ad), yoksa tüm hesabın verisi.",
+    "Femme Protocol'ün performans verisini çeker (harcama, impression, click, CTR, CPC, CPM, ROAS, dönüşümler). object_id verilirse o objenin (campaign/adset/ad), yoksa tüm hesabın verisi.",
   inputSchema: {
     type: "object",
     properties: {
@@ -144,7 +144,7 @@ const getInsightsTool: ToolDefinition = {
 const createCampaignTool: ToolDefinition = {
   name: "create_campaign",
   description:
-    "Yeni kampanya oluşturur. GÜVENLİK: kampanya her zaman PAUSED state'te oluşturulur — kullanıcı Ads Manager'da gözden geçirip aktif etmeli. Bütçe limiti kontrolü yapılır.",
+    "Femme Protocol için yeni kampanya oluşturur. GÜVENLİK: kampanya her zaman PAUSED state'te oluşturulur — kullanıcı Ads Manager'da gözden geçirip aktif etmeli. Bütçe limiti kontrolü yapılır. Suplement/wellness için tipik objective: OUTCOME_SALES.",
   inputSchema: {
     type: "object",
     properties: {
@@ -152,7 +152,7 @@ const createCampaignTool: ToolDefinition = {
       objective: {
         type: "string",
         enum: ["OUTCOME_SALES", "OUTCOME_TRAFFIC", "OUTCOME_AWARENESS", "OUTCOME_ENGAGEMENT", "OUTCOME_LEADS", "OUTCOME_APP_PROMOTION"],
-        description: "Kampanya hedefi (yeni objective sistemi)",
+        description: "Kampanya hedefi (yeni objective sistemi). Femme Protocol için tipik: OUTCOME_SALES (Shopify satış), OUTCOME_LEADS (e-mail toplama).",
       },
       daily_budget_try: {
         type: "number",
@@ -165,7 +165,7 @@ const createCampaignTool: ToolDefinition = {
       special_ad_categories: {
         type: "array",
         items: { type: "string", enum: ["NONE", "HOUSING", "EMPLOYMENT", "CREDIT", "ISSUES_ELECTIONS_POLITICS"] },
-        description: "Özel reklam kategorisi (Asra Pırlanta için genelde boş array veya [NONE])",
+        description: "Özel reklam kategorisi (suplement/wellness için genelde boş array veya [NONE])",
       },
     },
     required: ["name", "objective"],
@@ -206,7 +206,7 @@ const createCampaignTool: ToolDefinition = {
 
 const updateCampaignStatusTool: ToolDefinition = {
   name: "update_campaign_status",
-  description: "Bir kampanyayı aktif eder veya duraklatır.",
+  description: "Femme Protocol'ün bir kampanyasını aktif eder veya duraklatır.",
   inputSchema: {
     type: "object",
     properties: {
@@ -230,7 +230,7 @@ const updateCampaignStatusTool: ToolDefinition = {
 const updateCampaignBudgetTool: ToolDefinition = {
   name: "update_campaign_budget",
   description:
-    "Bir kampanyanın günlük veya toplam bütçesini değiştirir. GÜVENLİK: mevcut bütçeye göre %X üstü artış engellenir (env'de MAX_BUDGET_INCREASE_PERCENT).",
+    "Femme Protocol'ün bir kampanyasının günlük veya toplam bütçesini değiştirir. GÜVENLİK: mevcut bütçeye göre %X üstü artış engellenir (env'de MAX_BUDGET_INCREASE_PERCENT).",
   inputSchema: {
     type: "object",
     properties: {
@@ -287,7 +287,7 @@ const updateCampaignBudgetTool: ToolDefinition = {
 
 const updateAdSetStatusTool: ToolDefinition = {
   name: "update_ad_set_status",
-  description: "Bir ad set'i aktif eder veya duraklatır.",
+  description: "Femme Protocol'ün bir ad set'ini aktif eder veya duraklatır.",
   inputSchema: {
     type: "object",
     properties: {
@@ -313,7 +313,7 @@ const updateAdSetStatusTool: ToolDefinition = {
 const listPagesTool: ToolDefinition = {
   name: "list_pages",
   description:
-    "Bu reklam hesabı altında reklam çıkabileceğin Facebook sayfalarını listeler. Reklam oluştururken page_id gerekir; bu listeden seçilir. Asra Pırlanta için tek sayfa olmalı.",
+    "Femme Protocol reklam hesabı altında reklam çıkabileceği Facebook sayfalarını listeler. Reklam oluştururken page_id gerekir; bu listeden seçilir. Femme Protocol için 'Femme Protocol' veya 'Femme' sayfalarından biri kullanılır.",
   inputSchema: { type: "object", properties: {}, additionalProperties: false },
   handler: async (_args, client) => await client.listPages(),
 };
@@ -321,12 +321,12 @@ const listPagesTool: ToolDefinition = {
 const uploadImageTool: ToolDefinition = {
   name: "upload_image",
   description:
-    "Bir görseli Meta'nın reklam görsel kütüphanesine yükler ve hash döndürür. Hash, creative oluştururken kullanılır. Görsel base64 string olarak verilmeli. Kullanıcı görsel yüklediğinde önce bunu kullan, hash'i al, sonra create_creative_link'te kullan.",
+    "Bir görseli Meta'nın reklam görsel kütüphanesine yükler ve hash döndürür. Hash, creative oluştururken kullanılır. Görsel base64 string olarak verilmeli. Femme Protocol için tipik: ürün ambalaj görseli, lifestyle / before-after, sertifika rozetli görseller. Kullanıcı görsel yüklediğinde önce bunu kullan, hash'i al, sonra create_creative_link'te kullan.",
   inputSchema: {
     type: "object",
     properties: {
       image_base64: { type: "string", description: "Görselin base64-encoded içeriği (data URI prefix'i olmadan)" },
-      filename: { type: "string", description: "Dosya adı (örn. 'asra-yuzuk.jpg')", default: "image.jpg" },
+      filename: { type: "string", description: "Dosya adı (örn. 'femme-protocol-vitamin-d3.jpg')", default: "image.jpg" },
     },
     required: ["image_base64"],
     additionalProperties: false,
@@ -348,7 +348,7 @@ const uploadImageTool: ToolDefinition = {
 
 const listCreativesTool: ToolDefinition = {
   name: "list_creatives",
-  description: "Hesaptaki mevcut ad creative'leri listeler. Yeni reklam yaparken aynı creative'i tekrar kullanmak için.",
+  description: "Femme Protocol hesabındaki mevcut ad creative'leri listeler. Yeni reklam yaparken aynı creative'i tekrar kullanmak için.",
   inputSchema: {
     type: "object",
     properties: { limit: { type: "number", default: 50 } },
@@ -363,23 +363,23 @@ const listCreativesTool: ToolDefinition = {
 const createCreativeLinkTool: ToolDefinition = {
   name: "create_creative_link",
   description:
-    "Tek görsel + link reklamı için creative oluşturur. Önce upload_image ile görsel yükleyip hash al, sonra burada kullan. Ürün sayfasına yönlendiren reklamlarda ideal. Asra için: ürün linki + yüksek kaliteli mücevher görseli + 'Hemen İncele' CTA gibi.",
+    "Tek görsel + link reklamı için creative oluşturur. Önce upload_image ile görsel yükleyip hash al, sonra burada kullan. Femme Protocol için tipik kullanım: suplement ürün sayfası linki + temiz ürün/lifestyle görseli + 'SHOP_NOW' CTA. Bilgi/eğitim içeriği için 'LEARN_MORE'. Mesaj metninde fayda odaklı + kanıt (sertifika, doktor onayı) öne çıkarılır.",
   inputSchema: {
     type: "object",
     properties: {
-      name: { type: "string", description: "Creative iç adı (örn. 'asra-yuzuk-001-creative')" },
+      name: { type: "string", description: "Creative iç adı (örn. 'femme-protocol-vitamin-d3-001')" },
       page_id: { type: "string", description: "Facebook sayfa ID (list_pages'ten al)" },
       image_hash: { type: "string", description: "upload_image'den dönen hash" },
-      link: { type: "string", description: "Tıklandığında gidilecek URL (örn. ürün sayfası)" },
-      message: { type: "string", description: "Reklamın ana metni (post text)" },
+      link: { type: "string", description: "Tıklandığında gidilecek URL (örn. Femme Protocol ürün sayfası — femmeprotocol.myshopify.com)" },
+      message: { type: "string", description: "Reklamın ana metni (post text) — fayda odaklı, somut iddiaları desteklenmeli" },
       headline: { type: "string", description: "Reklam başlığı (görselin altında büyük yazı, max ~40 karakter)" },
       description: { type: "string", description: "Link açıklaması (başlığın altında küçük yazı)" },
       call_to_action_type: {
         type: "string",
         enum: ["SHOP_NOW", "LEARN_MORE", "BUY_NOW", "GET_OFFER", "SIGN_UP", "SUBSCRIBE", "CONTACT_US", "ORDER_NOW", "BOOK_TRAVEL", "DOWNLOAD"],
-        description: "Buton metni (Asra için en sık: SHOP_NOW veya LEARN_MORE)",
+        description: "Buton metni. Femme Protocol için en sık: SHOP_NOW (direkt satış), LEARN_MORE (içerik/eğitim), SUBSCRIBE (abonelik modeli varsa)",
       },
-      instagram_actor_id: { type: "string", description: "Instagram hesap ID (opsiyonel, IG'de de yayınlamak istersen)" },
+      instagram_actor_id: { type: "string", description: "Instagram hesap ID (opsiyonel, IG'de de yayınlamak istersen — femmeprotocol IG hesabı)" },
     },
     required: ["name", "page_id", "image_hash", "link", "message"],
     additionalProperties: false,
@@ -417,7 +417,7 @@ const createCreativeLinkTool: ToolDefinition = {
 const createAdSetTool: ToolDefinition = {
   name: "create_ad_set",
   description:
-    "Bir kampanyaya yeni ad set ekler. Targeting (kim görecek), optimizasyon hedefi, bütçe içerir. GÜVENLİK: her zaman PAUSED state'te. Bütçe limiti kontrolü yapılır. Targeting JSON formatı için Meta dökümanlarına bakılabilir; basit bir örnek: {geo_locations: {countries: ['TR']}, age_min: 25, age_max: 55, genders: [2]}.",
+    "Femme Protocol kampanyasına yeni ad set ekler. Targeting (kim görecek), optimizasyon hedefi, bütçe içerir. GÜVENLİK: her zaman PAUSED state'te. Bütçe limiti kontrolü yapılır. Suplement/wellness markası için targeting örneği: {geo_locations: {countries: ['TR']}, age_min: 25, age_max: 55, genders: [2], interests: [{id:'<search_interests_id>', name:'Health and wellness'}]}. Kadın suplement için genders=[2] (sadece kadın), yaş 25-55 sweet spot.",
   inputSchema: {
     type: "object",
     properties: {
@@ -428,7 +428,7 @@ const createAdSetTool: ToolDefinition = {
       optimization_goal: {
         type: "string",
         enum: ["REACH", "IMPRESSIONS", "LINK_CLICKS", "OFFSITE_CONVERSIONS", "LANDING_PAGE_VIEWS", "POST_ENGAGEMENT", "VALUE", "THRUPLAY", "QUALITY_LEAD"],
-        description: "Optimizasyon hedefi (kampanya objective'iyle uyumlu olmalı). Asra için tipik: OFFSITE_CONVERSIONS (satış) veya LANDING_PAGE_VIEWS (trafik).",
+        description: "Optimizasyon hedefi (kampanya objective'iyle uyumlu olmalı). Femme Protocol için tipik: OFFSITE_CONVERSIONS (Shopify satışı), LANDING_PAGE_VIEWS (trafik), QUALITY_LEAD (e-mail/newsletter lead).",
       },
       billing_event: {
         type: "string",
@@ -444,13 +444,13 @@ const createAdSetTool: ToolDefinition = {
       targeting: {
         type: "object",
         description:
-          "Targeting JSON. Örnek: {\"geo_locations\":{\"countries\":[\"TR\"]},\"age_min\":25,\"age_max\":55,\"genders\":[2],\"interests\":[{\"id\":\"6003020834693\",\"name\":\"Jewellery\"}]}. genders: 1=erkek, 2=kadın. Interests için önce search_interests kullan, ID al.",
+          "Targeting JSON. Femme Protocol örneği: {\"geo_locations\":{\"countries\":[\"TR\"]},\"age_min\":25,\"age_max\":55,\"genders\":[2],\"interests\":[{\"id\":\"<get_from_search_interests>\",\"name\":\"Health and wellness\"}]}. genders: 1=erkek, 2=kadın. Femme Protocol kadın suplement markası olduğu için genders=[2] tipik. Interests için önce search_interests kullan ('vitamins', 'wellness', 'women's health' gibi), ID al.",
       },
       start_time: { type: "string", description: "ISO 8601 datetime, opsiyonel" },
       end_time: { type: "string", description: "ISO 8601 datetime, opsiyonel (lifetime_budget kullanılıyorsa zorunlu)" },
       promoted_object: {
         type: "object",
-        description: "Conversion kampanyalarında: {\"pixel_id\":\"...\",\"custom_event_type\":\"PURCHASE\"} gibi",
+        description: "Conversion kampanyalarında: {\"pixel_id\":\"...\",\"custom_event_type\":\"PURCHASE\"} gibi. Femme Protocol için Shopify pixel + PURCHASE event tipik.",
       },
     },
     required: ["name", "campaign_id", "optimization_goal", "targeting"],
@@ -499,7 +499,7 @@ const createAdSetTool: ToolDefinition = {
 
 const updateAdSetTool: ToolDefinition = {
   name: "update_ad_set",
-  description: "Bir ad set'in adını, bütçesini, targeting'ini veya teklifini günceller. Bütçe değişikliklerinde guardrail uygulanır.",
+  description: "Femme Protocol'ün bir ad set'inin adını, bütçesini, targeting'ini veya teklifini günceller. Bütçe değişikliklerinde guardrail uygulanır.",
   inputSchema: {
     type: "object",
     properties: {
@@ -548,7 +548,7 @@ const updateAdSetTool: ToolDefinition = {
 const createAdTool: ToolDefinition = {
   name: "create_ad",
   description:
-    "Bir ad set'e yeni reklam ekler. Ad set + creative'i birleştirir. GÜVENLİK: her zaman PAUSED state'te oluşturulur. Sıra: create_campaign → create_ad_set → upload_image → create_creative_link → create_ad → (kullanıcı gözden geçirip aktif etsin).",
+    "Femme Protocol ad set'ine yeni reklam ekler. Ad set + creative'i birleştirir. GÜVENLİK: her zaman PAUSED state'te oluşturulur. Sıra: create_campaign → create_ad_set → upload_image → create_creative_link → create_ad → (kullanıcı gözden geçirip aktif etsin).",
   inputSchema: {
     type: "object",
     properties: {
@@ -577,7 +577,7 @@ const createAdTool: ToolDefinition = {
 
 const updateAdStatusTool: ToolDefinition = {
   name: "update_ad_status",
-  description: "Bir reklamı aktif eder veya duraklatır.",
+  description: "Femme Protocol'ün bir reklamını aktif eder veya duraklatır.",
   inputSchema: {
     type: "object",
     properties: {
@@ -597,7 +597,7 @@ const updateAdStatusTool: ToolDefinition = {
 
 const listCustomAudiencesTool: ToolDefinition = {
   name: "list_custom_audiences",
-  description: "Hesaptaki custom audience'ları listeler (retargeting, lookalike, site ziyaretçileri vb.). Ad set targeting'inde custom_audiences alanında ID'leri kullanılır.",
+  description: "Femme Protocol hesabındaki custom audience'ları listeler (retargeting, lookalike, site ziyaretçileri, müşteri listesi vb.). Ad set targeting'inde custom_audiences alanında ID'leri kullanılır. Suplement markası için tipik audience'lar: site ziyaretçileri, sepete ekleyenler, müşteri lookalike'ı.",
   inputSchema: {
     type: "object",
     properties: { limit: { type: "number", default: 50 } },
@@ -612,14 +612,14 @@ const listCustomAudiencesTool: ToolDefinition = {
 const listCatalogsTool: ToolDefinition = {
   name: "list_catalogs",
   description:
-    "Hesabın erişebildiği ürün kataloglarını listeler. Asra Pırlanta'nın 'Yeni Tasarım Katalog' veya 'Asra_Katalog_Ürünler' gibi katalogları görünür. Catalog/DPA reklamları için catalog_id gerekir.",
+    "Femme Protocol'ün erişebildiği ürün kataloglarını listeler. Femme Protocol'ün Shopify Product Catalog'u (femmeprotocol.myshopify.com) bağlı görünür. Catalog/DPA (Dynamic Product Ads) reklamları için catalog_id gerekir.",
   inputSchema: { type: "object", properties: {}, additionalProperties: false },
   handler: async (_args, client) => await client.listCatalogs(),
 };
 
 const listProductSetsTool: ToolDefinition = {
   name: "list_product_sets",
-  description: "Bir katalogdaki ürün setlerini listeler (örn. 'yüzükler', 'kolyeler', 'indirimli ürünler'). Catalog/DPA reklamlarında ad set'e bağlanır.",
+  description: "Femme Protocol katalogundaki ürün setlerini listeler (örn. 'vitaminler', 'probiyotikler', 'cilt sağlığı', 'menopoz desteği' gibi). Catalog/DPA reklamlarında ad set'e bağlanır.",
   inputSchema: {
     type: "object",
     properties: {
@@ -638,11 +638,11 @@ const listProductSetsTool: ToolDefinition = {
 const searchInterestsTool: ToolDefinition = {
   name: "search_interests",
   description:
-    "Targeting için ilgi alanı/interest araması yapar. Sonuçtaki ID'leri ad set targeting'inde interests alanında kullanırsın. Örnek query: 'jewelry', 'wedding rings', 'luxury fashion'. Asra için yararlı: 'engagement ring', 'fine jewelry', 'gold', 'diamond'.",
+    "Femme Protocol targeting'i için Meta ilgi alanı/interest araması yapar. Sonuçtaki ID'leri ad set targeting'inde interests alanında kullanırsın. İngilizce daha iyi sonuç verir. Femme Protocol (kadın suplement/wellness) için yararlı aramalar: 'women's health', 'vitamins', 'supplements', 'wellness', 'probiotic', 'menopause', 'hormonal balance', 'pregnancy nutrition', 'fitness', 'healthy lifestyle', 'natural remedies', 'organic products'.",
   inputSchema: {
     type: "object",
     properties: {
-      query: { type: "string", description: "İlgi alanı araması (İngilizce daha iyi sonuç verir)" },
+      query: { type: "string", description: "İlgi alanı araması (İngilizce daha iyi sonuç verir, örn. 'women health supplements')" },
       limit: { type: "number", default: 25 },
     },
     required: ["query"],
