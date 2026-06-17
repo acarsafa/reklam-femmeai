@@ -12,6 +12,8 @@ export interface MetaErrorBody {
     type: string;
     code: number;
     error_subcode?: number;
+    error_user_title?: string;
+    error_user_msg?: string;
     fbtrace_id?: string;
   };
 }
@@ -22,8 +24,12 @@ export class MetaApiError extends Error {
     public readonly body: MetaErrorBody,
     public readonly endpoint: string
   ) {
-    const msg = body?.error?.message ?? `HTTP ${status} from ${endpoint}`;
-    super(`Meta API error: ${msg} (code=${body?.error?.code}, trace=${body?.error?.fbtrace_id})`);
+    const e = body?.error;
+    const msg = e?.message ?? `HTTP ${status} from ${endpoint}`;
+    const detail = e?.error_user_msg
+      ? ` — ${e.error_user_title ?? ""}: ${e.error_user_msg}`
+      : "";
+    super(`Meta API error: ${msg}${detail} (code=${e?.code}, subcode=${e?.error_subcode ?? "-"}, trace=${e?.fbtrace_id})`);
   }
 }
 
