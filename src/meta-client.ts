@@ -61,10 +61,16 @@ export class MetaClient {
     url.searchParams.set("access_token", this.token);
 
     const init: RequestInit = { method };
-    if (method !== "GET" && options.body) {
-      init.headers = { "Content-Type": "application/json" };
-      init.body = JSON.stringify(options.body);
-    }
+if (method !== "GET" && options.body) {
+  // Graph API writes: form-urlencoded; dizi/nesne alanlar JSON string olmalı
+  const form = new URLSearchParams();
+  for (const [k, v] of Object.entries(options.body)) {
+    if (v === undefined || v === null) continue;
+    form.set(k, typeof v === "string" ? v : JSON.stringify(v));
+  }
+  init.headers = { "Content-Type": "application/x-www-form-urlencoded" };
+  init.body = form.toString();
+}
 
     const res = await fetch(url.toString(), init);
     const text = await res.text();
